@@ -52,6 +52,13 @@ public class AutorV1Controller {
     }
 
     @GetMapping("/{id}")
+    public ResponseEntity<AutorResponseDto> buscarAutor(@PathVariable Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(autorCrudService.buscarAutor(id));
+    }
+    
+    @GetMapping("/{id}")
     public ResponseEntity<AutorResponseDto> buscarLivro(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
