@@ -57,4 +57,12 @@ public class AutorV1Controller {
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> removerlivro (@PathVariable Long id) {
+        autorCrudService.removerAutor(id);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
 }
