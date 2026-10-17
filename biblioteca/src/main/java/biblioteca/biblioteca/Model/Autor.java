@@ -27,7 +27,13 @@ public class Autor {
     @JsonProperty("nacionalidade")
     private String nacionalidade;
 
-    @OnetoMany
-    
+    @OneToMany(
+        mappedBy = "autor",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    @Builder.Default
+    @JsonIgnore
+    private List<Livro> livros = new ArrayList<>();
 
 }
