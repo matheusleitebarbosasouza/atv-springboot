@@ -1,5 +1,21 @@
+package biblioteca.biblioteca.Controller;
+
+import biblioteca.biblioteca.Dto.LivroPostPutDto;
+import biblioteca.biblioteca.Dto.LivroResponseDto;
+import biblioteca.biblioteca.Dto.AutorPostPutDto;
+import biblioteca.biblioteca.Dto.AutorResponseDto;
+import biblioteca.biblioteca.Service.AutorCrudService;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
-@RequestMapping(value = "/v1/autores", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/v1/livros", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AutorV1Controller {
 
     @Autowired
