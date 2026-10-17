@@ -2,9 +2,7 @@ package biblioteca.biblioteca.Controller;
 
 import biblioteca.biblioteca.Dto.LivroPostPutDto;
 import biblioteca.biblioteca.Dto.LivroResponseDto;
-import biblioteca.biblioteca.Dto.AutorPostPutDto;
-import biblioteca.biblioteca.Dto.AutorResponseDto;
-import biblioteca.biblioteca.Service.AutorCrudService;
+import biblioteca.biblioteca.Service.LivroCrudService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
