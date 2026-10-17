@@ -3,8 +3,8 @@ package biblioteca.biblioteca.Controller;
 import biblioteca.biblioteca.Dto.LivroPostPutDto;
 import biblioteca.biblioteca.Dto.LivroResponseDto;
 import biblioteca.biblioteca.Service.LivroCrudService;
+
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,51 +13,67 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/v1/livros", produces = MediaType.APPLICATION_JSON_VALUE)
-public class AutorV1Controller {
+@RequestMapping(
+    value = "/v1/livros",
+    produces = MediaType.APPLICATION_JSON_VALUE
+)
+public class LivroV1Controller {
 
-    @Autowired
-    AutorCrudService autorCrudService;
-    
-    @PostMapping("")
+    private final LivroCrudService livroCrudService;
+
+    public LivroV1Controller(LivroCrudService livroCrudService) {
+        this.livroCrudService = livroCrudService;
+    }
+
+    @PostMapping
     public ResponseEntity<LivroResponseDto> criarLivro(
-            @RequestBody @Valid LivroPostPutDto LivroPostPutDto) {
+            @RequestBody @Valid LivroPostPutDto dto) {
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(autorCrudService.criarLivro(LivroPostPutDto));
+                .body(livroCrudService.criarLivro(dto));
     }
 
+    @GetMapping
+    public ResponseEntity<List<LivroResponseDto>> buscarTodosLivros() {
 
-     @GetMapping("")
-    public ResponseEntity<List<LivroResponseDto>> buscarTodosLivro() {
         return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(autorCrudService.buscarTodosLivro());
+                .ok(livroCrudService.buscarTodosLivros());
     }
 
-    
     @GetMapping("/{id}")
-    public ResponseEntity<AutorResponseDto> buscarLivro(@PathVariable Long id) {
+    public ResponseEntity<LivroResponseDto> buscarLivro(
+            @PathVariable Long id) {
+
         return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(autorCrudService.buscarLivro(id));
+                .ok(livroCrudService.buscarLivro(id));
     }
 
+    @GetMapping("/busca")
+    public ResponseEntity<List<LivroResponseDto>> buscarPorIsbnOuTitulo(
+            @RequestParam String termo) {
+
+        return ResponseEntity
+                .ok(livroCrudService.buscarPorIsbnOuTitulo(termo));
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<LivroResponseDto> atualizarLivro(
             @PathVariable Long id,
-            @RequestBody @Valid LivroPostPutDto LivroPostPutDto) {
+            @RequestBody @Valid LivroPostPutDto dto) {
+
         return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(autorCrudService.atualizarLivro(id, LivroPostPutDto));
+                .ok(livroCrudService.atualizarLivro(id, dto));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> removerlivro (@PathVariable Long id) {
-        autorCrudService.removerlivro(id);
+    public ResponseEntity<Void> removerLivro(
+            @PathVariable Long id) {
+
+        livroCrudService.removerLivro(id);
+
         return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
+                .noContent()
                 .build();
     }
 }
