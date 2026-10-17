@@ -14,26 +14,29 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Livro {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("id")
     private Long id;
 
-    @Column(name = "ds_nomeLivro", nullable = false)
-    @JsonProperty("nomeLivro")
-    private String nomeLivro;
+    @Column(name = "ds_isbn", nullable = false, unique = true)
+    @JsonProperty("isbn")
+    private String isbn;
 
-    @Column(name = "ds_Autor", nullable = false)
-    @JsonProperty("Autor")
-    private String Autor;
+    @Column(name = "ds_titulo", nullable = false)
+    @JsonProperty("titulo")
+    private String titulo;
 
-    @Column(name = "ds_Ano", nullable = false)
-    @JsonProperty("Ano")
-    private int Ano;
+    @Column(name = "ds_ano", nullable = false)
+    @JsonProperty("ano")
+    private Integer ano;
 
-    @Column(name = "ds_Edicao", nullable = false)
-    @JsonProperty("Edicao")
-    private String Edicao;
-    
+    @Column(name = "ds_edicao", nullable = false)
+    @JsonProperty("edicao")
+    private String edicao;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "autor_id", nullable = false)
+    private Autor autor;
 }
